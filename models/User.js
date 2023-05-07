@@ -41,7 +41,8 @@ const UserSchema = new mongoose.Schema({
         enum: ['admin', 'blogger']
     },
     avatar: {
-        type : Buffer
+        type : String,
+        default: '',
     }
 },  {
     timestamps : true

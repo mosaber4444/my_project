@@ -1,8 +1,10 @@
 const url = require('url');
-const User = require("../models/User");
+const User = require("../../models/User");
 const { log } = require('console');
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
 
 const getRegisterPage = (req, res, next) => {
     if (req.session.user) return res.redirect("/user/dashboard");
@@ -67,9 +69,37 @@ const getDashboardPage = (req, res, next) => {
 
 const logout = (req, res, next) => {
     req.session.destroy();
-
     res.redirect("/user/login");
 };
+
+const uploadImageUsers = async (req, res, next) => {
+    try {
+        const id = await req["session"]["user"]["_id"]
+        console.log(id)
+        const file = await req.file.path;
+        console.log(file);
+        fs.readFileSync(req.file.path);
+        const addresAvatar = await `./public/images/avatar_users/`+ id + `.jpeg` ;
+        await User.updateOne({ _id: id }, { avatar: addresAvatar})
+        await res.redirect("/user/login")
+    } catch (error) {
+
+        res.send(`somthing went error`);
+        console.log(error)
+    }
+};
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images/avatar_users')
+    },
+    filename: function (req, file, cb) {
+        const id = req.session.user._id
+        cb(null, `${id}.jpeg`)
+    }
+})
+
+const upload = multer({ storage: storage })
 
 
 
@@ -79,6 +109,7 @@ module.exports = {
     getLoginPage,
     loginUser,
     getDashboardPage,
-    logout
-    // uploadAvatar
-}
+    logout,
+    uploadImageUsers,
+    upload,
+};

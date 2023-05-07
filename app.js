@@ -8,18 +8,14 @@ const app = express();
 
 const userRouter = require('./routes/userRouter');
 
-
 mongoose.connect('mongodb://127.0.0.1:27017/hw54').then(() => {
   console.log("DB is connected..");
 });
 
-
 app.use(express.static('public'))
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,7 +28,6 @@ app.use(session({
   cookie: { maxAge: oneDay },
   resave: true
 }));
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 
