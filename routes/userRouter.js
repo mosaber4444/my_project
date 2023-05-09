@@ -1,5 +1,4 @@
 const multer  = require('multer');
-
 const express = require('express');
 const router = express.Router();
 const {
@@ -10,18 +9,21 @@ const {
     getDashboardPage,
     logout,
     uploadImageUsers,
-    upload
+    upload,
 } = require("../controllers/users_controllers/userControllers");
+const {registerValidator} = require("../midleware/validatorsUser/validatorUsers");
+const {chekSessionUser} = require("../midleware/other/chekSessionUser")
 
 
 
-router.get("/register", getRegisterPage);
-router.post("/register", registerUser)
 
-router.get("/login", getLoginPage);
+router.get("/register",chekSessionUser, getRegisterPage);
+router.post("/register",registerValidator, registerUser)
+
+router.get("/login",chekSessionUser,getLoginPage);
 router.post("/login", loginUser);
 
-router.get("/dashboard", getDashboardPage);
+router.get("/dashboard",getDashboardPage);
 
 router.get("/logout", logout);
 

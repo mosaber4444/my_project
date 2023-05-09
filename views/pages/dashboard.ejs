@@ -1,154 +1,15 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashborad</title>
-</head>
-<body>
-    <p>Hello <%= user.firstName + " " + user.lastName %>!</p>
 
-    <br>
-    <br>
-    <form action="/user/logout" method="get">
-        <input type="submit" value="logout">
-    </form>
-    <form action="/user/upload" enctype="multipart/form-data" method="POST"> 
-        <input type="file" name="myFile" />
-        <input type="submit" value="Upload a file"/>
-     </form>
-    <img src=" <%= user.avatar %>">
-    
-    <img src=" ../6458110152d7ea54a682a606.jpeg">
-    <img src="../../public/images/avatar_users/6458110152d7ea54a682a606.jpeg">
-
-</body>
-</html> -->
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>User Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
 </head>
-<style>.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    }
-    
-    h1 {
-    margin-bottom: 30px;
-    font-size: 36px;
-    text-align: center;
-    }
-    
-    .profile {
-    margin-bottom: 40px;
-    }
-    
-    .profile img {
-    display: block;
-    margin: 0 auto;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-    
-    .profile ul {
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-    }
-    
-    .profile li {
-    margin-bottom: 10px;
-    font-size: 18px;
-    line-height: 1.5;
-    }
-    
-    .username {
-    font-weight: bold;
-    color: #007BFF;
-    }
-    
-    .content {
-    font-size: 18px;
-    line-height: 1.5;
-    }
-    
-    form {
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #F5F5F5;
-    padding: 20px;
-    border-radius: 5px;
-    }
-    
-    label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    }
-    
-    input[type="text"],
-    input[type="password"],
-    select {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #CCC;
-    border-radius: 4px;
-    box-sizing: border-box;
-    }
-    
-    select:focus,
-    input[type="text"]:focus,
-    input[type="password"]:focus {
-    outline: none;
-    border-color: #4CAF50;
-    }
-    
-    input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-    }
-    
-    input[type="submit"]:hover {
-    background-color: #45A049;
-    }
-    
-    input[type="submit"]:active {
-    background-color: #3E8E41;
-    }
-    
-    select {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 5' fill='%23333'%3E%3Cpath d='M5 5L0 0h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px top 50%;
-    background-size: 10px 5px;
-    padding-right: 28px;
-    }
-    
-    select:focus {
-    border-color: #4CAF50;
-    }
-    </style>
+
 <body>
     <div class="container">
-        <h1>Welcome, <span class="username">user</span>!</h1>
+        <h1>Welcome, <span class="username"><%= user.firstName %></span></h1>
         <div class="profile">
             <h2>Profile</h2>
             <img src="<%= user.avatar %>">

@@ -5,11 +5,10 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-
-const getRegisterPage = (req, res, next) => {
-    if (req.session.user) return res.redirect("/user/dashboard");
-    res.render("pages/register");
-};
+function getRegisterPage(req, res, next) {
+    const { errorMessage = null } = req.query;
+    res.render("pages/register", { errorMessage });
+}
 
 const registerUser = async (req, res, next) => {
     const newUser = new User({
@@ -36,13 +35,13 @@ const registerUser = async (req, res, next) => {
 };
 
 const getLoginPage = (req, res, next) => {
-    if (req.session.user) return res.redirect("/user/dashboard");
     const { errorMessage = null } = req.query;
     res.render("pages/login", { errorMessage });
 };
 
 const loginUser = async (req, res, next) => {
     try {
+        if (req.session.user) return res.redirect("/user/dashboard");
         const user = await User.findOne({ username: req.body.username });
         if (!user) return res.redirect(`/user/login?errorMessage=User not found!`);
 
@@ -55,7 +54,7 @@ const loginUser = async (req, res, next) => {
         res.redirect(url.format({
             pathname: "/user/login",
             query: {
-                "errorMessage": "Server Error!"
+                "errorMessage": "somothing went error"
             }
         }))
     };
