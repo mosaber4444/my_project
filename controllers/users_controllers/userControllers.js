@@ -4,6 +4,7 @@ const { log } = require('console');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 
 function getRegisterPage(req, res, next) {
     const { errorMessage = null } = req.query;
@@ -80,6 +81,30 @@ const deleteUser = async (req, res, next) => {
         console.log(error);
     }
 };
+
+const updateUser = async (req , res , next) => {
+    try {
+        const updatedUser = {};
+        const id = req.session._id;
+        if(!!firstName) updatedUser.firstName = req.body.firstName ;
+        if(!!lastName) updatedUser.lastName = req.body.lastName ;
+        if(!!username) updatedUser.username = req.body.username ;
+        if(!!password) updatedUser.password = req.body.password ;
+        if(!!gender) updatedUser.gender = req.body.gender ;
+        if(!!mobile) updatedUser.mobile = req.mobile.mobile ;
+        if(!!role) updatedUser.role = req.body.role ;
+
+        const salt = bcrypt.genSalt(10);
+        if (!!updatedUser.password) {
+            updatedUser.password =  bcrypt.hash(updatedUser.password, salt);
+        }
+        await User.findByIdAndUpdate(id , updateUser);
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
 
 const uploadImageUsers = async (req, res, next) => {
     try {
