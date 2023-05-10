@@ -71,6 +71,16 @@ const logout = (req, res, next) => {
     res.redirect("/user/login");
 };
 
+const deleteUser = async (req, res, next) => {
+    try {
+        await User.findByIdAndRemove(req.session.user._id);
+        req.session.destroy();
+        res.redirect("/user/register");
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const uploadImageUsers = async (req, res, next) => {
     try {
         const id = await req["session"]["user"]["_id"]
@@ -111,4 +121,5 @@ module.exports = {
     logout,
     uploadImageUsers,
     upload,
+    deleteUser
 };

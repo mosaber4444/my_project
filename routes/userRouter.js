@@ -10,6 +10,7 @@ const {
     logout,
     uploadImageUsers,
     upload,
+    deleteUser
 } = require("../controllers/users_controllers/userControllers");
 const {registerValidator} = require("../midleware/validatorsUser/validatorUsers");
 const {chekSessionUser} = require("../midleware/other/chekSessionUser")
@@ -26,6 +27,7 @@ router.post("/login", loginUser);
 router.get("/dashboard",getDashboardPage);
 
 router.get("/logout", logout);
+router.get("/deleteUser",deleteUser);
 
 
 router.post('/upload', upload.single('myFile'), uploadImageUsers );
