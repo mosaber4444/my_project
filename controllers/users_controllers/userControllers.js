@@ -83,9 +83,11 @@ const deleteUser = async (req, res, next) => {
 };
 
 const updateUser = async (req , res , next) => {
+    console.log("req body :",req.body);
     try {
         const updatedUser = {};
         const id = req.session._id;
+        console.log("id:",id)
         if(!!firstName) updatedUser.firstName = req.body.firstName ;
         if(!!lastName) updatedUser.lastName = req.body.lastName ;
         if(!!username) updatedUser.username = req.body.username ;
@@ -93,13 +95,13 @@ const updateUser = async (req , res , next) => {
         if(!!gender) updatedUser.gender = req.body.gender ;
         if(!!mobile) updatedUser.mobile = req.mobile.mobile ;
         if(!!role) updatedUser.role = req.body.role ;
-
         const salt = bcrypt.genSalt(10);
         if (!!updatedUser.password) {
             updatedUser.password =  bcrypt.hash(updatedUser.password, salt);
         }
+        console.log(updateUser);
         await User.findByIdAndUpdate(id , updateUser);
-
+        res.redirect("/user/dashboard");
     } catch (error) {
         console.log(error);
     }
@@ -113,7 +115,7 @@ const uploadImageUsers = async (req, res, next) => {
         const file = await req.file.path;
         console.log(file);
         fs.readFileSync(req.file.path);
-        const addresAvatar = await `./public/images/avatar_users/`+ id + `.jpeg` ;
+        const addresAvatar = `/images/avatar_users/`+ id + `.jpeg` ;
         await User.updateOne({ _id: id }, { avatar: addresAvatar})
         await res.redirect("/user/login")
     } catch (error) {
@@ -146,5 +148,6 @@ module.exports = {
     logout,
     uploadImageUsers,
     upload,
-    deleteUser
+    deleteUser,
+    updateUser
 };
