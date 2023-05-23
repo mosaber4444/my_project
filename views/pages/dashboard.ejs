@@ -60,6 +60,28 @@
 
         </div>
 
+        <form method="POST" action="/article">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required minlength="3">
+          
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" minlength="3"></textarea>
+          
+            <label for="avatar">Avatar:</label>
+            <input type="file" id="avatar" name="avatar">
+          
+            <label for="avatarsArticle">Avatars Article:</label>
+            <input type="file" id="avatarsArticle" name="avatarsArticle">
+          
+            <label for="writerId">Writer ID:</label>
+            <input type="text" id="writerId" name="writerId">
+          
+            <label for="commentId">Comment ID:</label>
+            <input type="text" id="commentId" name="commentId">
+          
+            <button type="submit">Create Article</button>
+          </form>
+
         <div class="content">
             <h2>Content</h2>
             <p>Here is some content for the user dashboard.</p>
@@ -104,8 +126,7 @@
             console.log(updatedUser)
             location.reload()
         })
-    });
-
+    })})
 </script>
 </body>
 

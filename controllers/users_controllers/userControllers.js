@@ -1,5 +1,5 @@
 const url = require('url');
-const User = require("../../models/User");
+const {User} = require("../../models/User");
 const { log } = require('console');
 const multer = require('multer');
 const path = require('path');
@@ -63,7 +63,7 @@ const loginUser = async (req, res, next) => {
 
 const getDashboardPage = (req, res, next) => {
     if (!req.session.user) return res.redirect("/user/login");
-    console.log(req.session.user);
+    console.log(`${req.session.user.username} enter dushboard`);
     res.render("pages/dashboard", { user: req.session.user });
 };
 
@@ -86,21 +86,21 @@ const updateUser = async (req , res , next) => {
     console.log("req body :",req.body);
     try {
         const updatedUser = {};
-        const id = req.session._id;
+        const id = req.session.user._id;
         console.log("id:",id)
-        if(!!firstName) updatedUser.firstName = req.body.firstName ;
-        if(!!lastName) updatedUser.lastName = req.body.lastName ;
-        if(!!username) updatedUser.username = req.body.username ;
-        if(!!password) updatedUser.password = req.body.password ;
-        if(!!gender) updatedUser.gender = req.body.gender ;
-        if(!!mobile) updatedUser.mobile = req.mobile.mobile ;
-        if(!!role) updatedUser.role = req.body.role ;
+        if(!!req.body.firstName) updatedUser.firstName = req.body.firstName ;
+        if(!!req.body.lastName) updatedUser.lastName = req.body.lastName ;
+        if(!!req.body.username) updatedUser.username = req.body.username ;
+        if(!!req.body.password) updatedUser.password = req.body.password ;
+        if(!!req.body.gender) updatedUser.gender = req.body.gender ;
+        if(!! req.body.mobile ) updatedUser.mobile = req.body.mobile ;
+        if(!!req.body.role) updatedUser.role = req.body.role ;
         const salt = bcrypt.genSalt(10);
         if (!!updatedUser.password) {
             updatedUser.password =  bcrypt.hash(updatedUser.password, salt);
         }
         console.log(updateUser);
-        await User.findByIdAndUpdate(id , updateUser);
+        await User.findByIdAndUpdate(id , updatedUser);
         res.redirect("/user/dashboard");
     } catch (error) {
         console.log(error);

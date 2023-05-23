@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const {
     createArticle,
-    uploadImageArticle
+    uploadImageArticle,
+    upload
 } = require('../controllers/articlesController/articleController')
 
 router.post('/', createArticle ,upload.single('myFile'), uploadImageArticle );

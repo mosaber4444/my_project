@@ -60,21 +60,20 @@ const Articles = new mongoose.Schema({
         type : String
     },
     avatar :{
-        required : false , 
         type : String    
     },
     avatarsArticle : {
-        required : false
+        type : String
     },
     writerId : {
-        required : true 
+        type : String
     },
     commentId : []
 })
 
 const comments = new mongoose.Schema({
     writerId : {
-        required : true 
+        type : String
     }
 })
 
@@ -97,6 +96,6 @@ UserSchema.methods.validatePassword = async function validatePassword(data) {
 };
 
 const Article = mongoose.model("Article", Articles);
+const User = mongoose.model("user", UserSchema);
 
-module.exports = mongoose.model("user", UserSchema);
-module.exports = Article;
+module.exports = {Article,User};

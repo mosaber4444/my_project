@@ -7,6 +7,7 @@ const session = require("express-session");
 const app = express();
 
 const userRouter = require('./routes/userRouter');
+const articleRouter = require('./routes/articleRouter');
 
 mongoose.connect('mongodb://127.0.0.1:27017/hw54').then(() => {
   console.log("DB is connected..");
@@ -32,6 +33,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', userRouter);
+app.use('/article', articleRouter);
 
 app.listen(8000,()=>{
   console.log(`server run on port 8000 ...`)

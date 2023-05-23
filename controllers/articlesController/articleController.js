@@ -9,7 +9,7 @@ const createArticle = async (req, res, next) => {
         avatarsArticle: req.body.avatarsArticle,
         writerId: req.body.writerId,
         commentId: req.body.commentId,
-    }) = req.body ;
+    });
      try {
         await newArticel.save()
      } catch (err) {
@@ -26,7 +26,8 @@ const uploadImageArticle = async (req, res, next) => {
         console.log(file);
         fs.readFileSync(req.file.path);
         const addresAvatar = `/images/avatars_Article/`+ id + `.jpeg` ;
-        await Article.updateOne({ _id: id }, { Article: addresAvatar})
+        await Article.updateOne({ _id: id }, { avatarsArticle: addresAvatar })
+
     } catch (error) {
         res.send(`somthing went error`);
         console.log(error)
@@ -44,3 +45,9 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
+
+module.exports = {
+    createArticle,
+    uploadImageArticle,
+    upload
+}
