@@ -1,53 +1,43 @@
-const { Article } = require("../../models/User");
+const { Article } = require("../../models/Article");
 const fs = require('fs');
 const multer = require('multer');
 
 const createArticle = async (req, res, next) => {
-    const newArticel = new Article({
-        title: req.body.title,
-        description: req.body.description,
-        avatarsArticle: req.body.avatarsArticle,
-        writerId: req.body.writerId,
-        commentId: req.body.commentId,
-    });
-     try {
-        await newArticel.save()
-     } catch (err) {
-        console.log(err);
-     }
-
-}
-
-const uploadImageArticle = async (req, res, next) => {
+    console.log(req.body)
     try {
-        const id = await req["session"]["user"]["_id"]
-        console.log(id)
-        const file = await req.file.path;
-        console.log(file);
-        fs.readFileSync(req.file.path);
-        const addresAvatar = `/images/avatars_Article/`+ id + `.jpeg` ;
-        await Article.updateOne({ _id: id }, { avatarsArticle: addresAvatar })
+        const { title, description } = req.body;
+        const writerId = req.session.user._id;
+        const file = req.file; // Get the uploaded file
+        
+        const newArticle = new Article({
+            title,
+            description,
+            writerId,
+            avatar: `/images/avatars_Article/${file.filename}` // Save the file path in the 'avatar' field
+        });
 
-    } catch (error) {
-        res.send(`somthing went error`);
-        console.log(error)
+        await newArticle.save();
+        res.redirect("/user/dashboard");
+    } catch (err) {
+        console.log(err)
+        res.redirect('/user/dashboard?errorMessage=something went wrong');
     }
 };
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/images/avatars_Article')
+        cb(null, './public/images/avatars_Article');
     },
     filename: function (req, file, cb) {
-        const id = req.session.user._id
-        cb(null, `${id}.jpeg`)
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + '-' + file.originalname);
     }
-})
+});
 
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
+
 
 module.exports = {
     createArticle,
-    uploadImageArticle,
     upload
 }

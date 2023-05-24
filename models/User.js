@@ -49,36 +49,6 @@ const UserSchema = new mongoose.Schema({
     timestamps : true
 });
 
-const Articles = new mongoose.Schema({
-    title : {
-        required : true ,
-        minlength : 3 ,
-        type : String 
-    },
-    description : {
-        minlength : 3 ,
-        type : String
-    },
-    avatar :{
-        type : String    
-    },
-    avatarsArticle : {
-        type : String
-    },
-    writerId : {
-        type : String
-    },
-    commentId : []
-})
-
-const comments = new mongoose.Schema({
-    writerId : {
-        type : String
-    }
-})
-
-
-
 UserSchema.pre("save", async function (next) {
     if (!this.isNew && !this.isModified('password')) return next();
 
@@ -95,7 +65,6 @@ UserSchema.methods.validatePassword = async function validatePassword(data) {
     return bcrypt.compare(data, this.password);
 };
 
-const Article = mongoose.model("Article", Articles);
 const User = mongoose.model("user", UserSchema);
 
-module.exports = {Article,User};
+module.exports = {User};

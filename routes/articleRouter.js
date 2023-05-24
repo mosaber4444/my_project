@@ -1,13 +1,13 @@
-const multer  = require('multer');
+const multer = require('multer');
 const express = require('express');
 const router = express.Router();
 const {
     createArticle,
-    uploadImageArticle,
     upload
 } = require('../controllers/articlesController/articleController')
 
-router.post('/', createArticle ,upload.single('myFile'), uploadImageArticle );
+// router.post('/', createArticle);
+router.post('/', upload.single('myFile'), createArticle);
 
 
 module.exports = router;
