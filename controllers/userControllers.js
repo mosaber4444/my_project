@@ -1,5 +1,5 @@
 const url = require('url');
-const {User} = require("../../models/User");
+const {User} = require("../models/User");
 const { log } = require('console');
 const multer = require('multer');
 const path = require('path');

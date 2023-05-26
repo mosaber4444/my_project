@@ -12,7 +12,7 @@ const {
     upload,
     deleteUser,
     updateUser
-} = require("../controllers/users_controllers/userControllers");
+} = require("../controllers/userControllers");
 const {registerValidator} = require("../midleware/validatorsUser/validatorUsers");
 const {chekSessionUser} = require("../midleware/other/chekSessionUser")
 
