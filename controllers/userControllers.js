@@ -93,7 +93,7 @@ const updateUser = async (req , res , next) => {
         if(!!req.body.username) updatedUser.username = req.body.username ;
         if(!!req.body.password) updatedUser.password = req.body.password ;
         if(!!req.body.gender) updatedUser.gender = req.body.gender ;
-        if(!! req.body.mobile ) updatedUser.mobile = req.body.mobile ;
+        if(!!req.body.mobile ) updatedUser.mobile = req.body.mobile ;
         if(!!req.body.role) updatedUser.role = req.body.role ;
         const salt = bcrypt.genSalt(10);
         if (!!updatedUser.password) {

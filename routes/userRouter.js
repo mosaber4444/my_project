@@ -13,7 +13,7 @@ const {
     deleteUser,
     updateUser
 } = require("../controllers/userControllers");
-const {registerValidator} = require("../midleware/validatorsUser/validatorUsers");
+const {registerValidator} = require("../midleware/validators/validatorUsers");
 const {chekSessionUser} = require("../midleware/other/chekSessionUser")
 
 

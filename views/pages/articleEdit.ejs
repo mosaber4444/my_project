@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>article</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 
 <body>
 
-              <h5 <%= data.title %></h5>
+    <img src="<%= data.avatar %>">
 
-        
+    <form id="updateClick">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required minlength="3" value="">
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" minlength="3"></textarea>
+
+        <!-- <label for="myFile">Upload a file:</label>
+        <input type="file" name="myFile" id="myFile" /> -->
+
+        <button id="click" type="submit">update article</button>
+    </form>
+    <button id="delete" type="submit">delete article</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/editArticle.js"></script>
+
+
 </body>
 
 </html>
